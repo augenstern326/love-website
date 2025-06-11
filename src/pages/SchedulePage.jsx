@@ -12,7 +12,7 @@ const SchedulePage = () => {
       { period: "3", time: "10:35-11:20" },
       { period: "4", time: "12:30-13:10" },
       { period: "5", time: "13:20-14:05" },
-      { period: "大课间", time: "14:05-14:35", type: "break", activity: "转流看操" },
+      { period: "大课间", time: "14:05-14:35", type: "break", activity: "轮流看操" },
       { period: "6", time: "14:35-15:15" },
       { period: "7", time: "16:15-17:30"}
     ],
