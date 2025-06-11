@@ -20,7 +20,7 @@ const Navigation = () => {
             <div className="heartbeat-animation">
               <Heart className="w-6 h-6 text-pink-500" />
             </div>
-            <span className="text-lg font-semibold text-gray-800 hidden sm:block">我们的爱情小屋</span>
+            <span className="text-lg font-semibold text-gray-800 hidden sm:block">爱情小屋</span>
             <span className="text-lg font-semibold text-gray-800 sm:hidden">爱情小屋</span>
           </div>
           

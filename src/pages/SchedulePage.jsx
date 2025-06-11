@@ -5,7 +5,7 @@ const SchedulePage = () => {
   const scheduleData = {
     title: "2024—2025学年度第二学期",
     timeSlots: [
-      { period: "早习", time: "7:15-7:40" },
+      { period: "0", name:"早习",time: "7:15-7:40",type: "morning" },
       { period: "1", time: "8:35-9:15" },
       { period: "大课间", time: "9:15-9:45", type: "break", activity: "升旗仪式、早操" },
       { period: "2", time: "9:45-10:25" },
@@ -14,14 +14,14 @@ const SchedulePage = () => {
       { period: "5", time: "13:20-14:05" },
       { period: "大课间", time: "14:05-14:35", type: "break", activity: "转流看操" },
       { period: "6", time: "14:35-15:15" },
-      { period: "7", time: "16:15-17:30", activity: "延时" }
+      { period: "7", time: "16:15-17:30"}
     ],
     weeklySchedule: {
-      "星期一": { 3: "五3", 5: "五5", 6: "五1" },
+      "星期一": { 3: "五3", 5: "五5", 6: "五1",7:"延时" },
       "星期二": { 5: "五5班队" },
       "星期三": { 2: "五4", 3: "五2", 4: "五5", 5: "五6" },
-      "星期四": { 3: "五1", 6: "五6" },
-      "星期五": { 3: "五3", 4: "五4", 6: "五2" }
+      "星期四": { 3: "五1", 6: "五6",7:"延时" },
+      "星期五": { 0:"护学",3: "五3", 4: "五4", 6: "五2" }
     }
   }
 
@@ -82,7 +82,7 @@ const SchedulePage = () => {
                         <Clock className="w-3 h-3 md:w-4 md:h-4 text-gray-500" />
                         <div>
                           <div className="font-semibold text-gray-800 text-sm md:text-base">
-                            {slot.type === 'break' ? slot.period : `第${slot.period}节`}
+                            {slot.type === 'break' ? slot.period :(slot.type === 'morning'? slot.name : `第${slot.period}节`)}
                           </div>
                           <div className="text-xs md:text-sm text-gray-600">{slot.time}</div>
                           {slot.activity && (
