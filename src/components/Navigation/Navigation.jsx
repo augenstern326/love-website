@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { Heart, Calendar, Menu, X } from 'lucide-react'
+import { Heart, Calendar, Menu, X, Star } from 'lucide-react'
 import { useState } from 'react'
 
 const Navigation = () => {
@@ -8,7 +8,8 @@ const Navigation = () => {
 
   const navItems = [
     { path: '/', label: '首页', icon: Heart },
-    { path: '/schedule', label: '课表', icon: Calendar }
+    { path: '/schedule', label: '课表', icon: Calendar },
+    { path: '/memory', label: '记忆', icon: Star }
   ]
 
   return (

@@ -3,6 +3,7 @@ import Navigation from './components/Navigation/Navigation'
 import Home from './pages/Home'
 import SchedulePage from './pages/SchedulePage'
 import './App.css'
+import MemoryPage from "./pages/MemoryPage.jsx";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/schedule" element={<SchedulePage />} />
+          <Route path="/memory" element={<MemoryPage />} />
         </Routes>
       </div>
     </Router>
