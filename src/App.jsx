@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Navigation from './components/Navigation/Navigation'
-import Home from './pages/Home'
-import SchedulePage from './pages/SchedulePage'
+import Home from './pages/Home/Home.jsx'
+import SchedulePage from './pages/SchedulePage/SchedulePage.jsx'
 import './App.css'
-import MemoryPage from "./pages/MemoryPage.jsx";
+import MemoryPage from "./pages/MemoryPage/MemoryPage.jsx";
 
 function App() {
   return (

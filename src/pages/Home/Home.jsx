@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Heart, Sparkles } from 'lucide-react'
-import romanticBg from '../assets/romantic-background.png'
-import heartDecoration from '../assets/heart-decoration.png'
+import romanticBg from '../../assets/romantic-background.png'
+import heartDecoration from '../../assets/heart-decoration.png'
 
 const Home = () => {
   const [timeElapsed, setTimeElapsed] = useState({

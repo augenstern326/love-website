@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import './MemoryPage.css';
 const MemoryPage = () =>  {
     const [activeCategory, setActiveCategory] = useState('all');
     const [showForm, setShowForm] = useState(false);
@@ -92,9 +92,6 @@ const MemoryPage = () =>  {
                             {category === 'all' ? '全部回忆' : category}
                         </button>
                     ))}
-                    <button className="add-memory-btn" onClick={() => setShowForm(true)}>
-                        + 添加新回忆
-                    </button>
                 </nav>
 
                 <div className="memory-grid">
