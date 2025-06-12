@@ -9,20 +9,18 @@
     --light-text: #666;
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     --transition: all 0.3s ease;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/** {*/
-/*    margin: 0;*/
-/*    padding: 0;*/
-/*    box-sizing: border-box;*/
-/*}*/
 
-/*body {*/
-/*    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;*/
-/*    background: linear-gradient(135deg, #fffaf0, #fff0f5);*/
-/*    color: var(--text-color);*/
-/*    line-height: 1.6;*/
-/*}*/
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #fffaf0, #fff0f5);
+    color: var(--text-color);
+    line-height: 1.6;
+}
 
 .app {
     min-height: 100vh;
@@ -33,7 +31,7 @@
 .header {
     background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
     color: white;
-    padding: 2rem 1rem;
+    padding: 5rem 1rem 2rem 1rem;
     text-align: center;
     position: relative;
     overflow: hidden;
