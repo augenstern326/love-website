@@ -6,7 +6,7 @@ const MemoryPage = () =>  {
     const [memories, setMemories] = useState([
         {
             id: 1,
-            title: "表白",
+            title: "告白の日",
             date: "2025-06-06",
             location: "中央公园",
             description: "",
