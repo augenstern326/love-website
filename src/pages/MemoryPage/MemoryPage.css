@@ -216,7 +216,7 @@ body {
 
 /* Background images */
 .park {
-    background: url('../../assets/img/20250613.jpg') center/cover;
+    background: url('../../../public/img/20250613.jpg') center/cover;
 }
 
 .beach {

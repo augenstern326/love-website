@@ -11,7 +11,7 @@ const MemoryPage = () =>  {
             location: "中央公园",
             description: "",
             category: "特别日子",
-            image: "src/assets/img/20250606.jpg"
+            image: "img/20250606.jpg"
         },
         {
             id: 2,
@@ -20,7 +20,7 @@ const MemoryPage = () =>  {
             location: "狮山公园",
             description: "",
             category: "约会",
-            image: "src/assets/img/20250610.jpg"
+            image: "img/20250610.jpg"
         },
         {
             id: 3,
@@ -29,7 +29,7 @@ const MemoryPage = () =>  {
             location: "石湖公园",
             description: "",
             category: "约会",
-            image: "src/assets/img/20250613.jpg"
+            image: "img/20250613.jpg"
         },
     ]);
 
