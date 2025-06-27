@@ -8,7 +8,6 @@ const Navigation = () => {
 
   const navItems = [
     { path: '/', label: '首页', icon: Heart },
-    { path: '/schedule', label: '课表', icon: Calendar },
     { path: '/memory', label: '记忆', icon: Star }
   ]
 
