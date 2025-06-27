@@ -12,7 +12,7 @@ function App() {
         <Navigation />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/schedule" element={<SchedulePage />} />
+          {/*<Route path="/schedule" element={<SchedulePage />} />*/}
           <Route path="/memory" element={<MemoryPage />} />
         </Routes>
       </div>
