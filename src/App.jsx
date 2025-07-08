@@ -4,6 +4,7 @@ import Home from './pages/Home/Home.jsx'
 import SchedulePage from './pages/SchedulePage/SchedulePage.jsx'
 import './App.css'
 import MemoryPage from "./pages/MemoryPage/MemoryPage.jsx";
+import NekoPage from "@/pages/NekoPage/NekoPage.jsx";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Home />} />
           {/*<Route path="/schedule" element={<SchedulePage />} />*/}
           <Route path="/memory" element={<MemoryPage />} />
+          <Route path="/neko" element={<NekoPage />} />
         </Routes>
       </div>
     </Router>

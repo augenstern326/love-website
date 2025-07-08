@@ -187,7 +187,7 @@ const Home = () => {
             transition={{ delay: 1.2, duration: 0.6 }}
           >
             <div className="text-lg md:text-xl text-gray-700">
-              我们已经相爱了
+              我们已经在一起
               <motion.span
                 className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 mx-2"
                 animate={{ scale: [1, 1.05, 1] }}
@@ -195,7 +195,7 @@ const Home = () => {
               >
                 {Math.floor((new Date() - startDate) / (1000 * 60 * 60 * 24))}
               </motion.span>
-              个美好的日子 ✨
+              天 ✨
             </div>
           </motion.div>
         </motion.div>
@@ -221,13 +221,13 @@ const Home = () => {
               </div>
             </div>
 
-            <motion.div
-              className="flex items-center justify-center mb-4"
-              animate={{ y: [0, -5, 0] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <img src={heartDecoration} alt="heart" className="w-10 h-10 md:w-12 md:h-12" />
-            </motion.div>
+            {/*<motion.div*/}
+            {/*  className="flex items-center justify-center mb-4"*/}
+            {/*  animate={{ y: [0, -5, 0] }}*/}
+            {/*  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}*/}
+            {/*>*/}
+            {/*  <img src={heartDecoration} alt="heart" className="w-10 h-10 md:w-12 md:h-12" />*/}
+            {/*</motion.div>*/}
 
             <motion.h2
               className="text-xl md:text-2xl font-bold text-gray-800 mb-4"
@@ -235,7 +235,7 @@ const Home = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8, duration: 0.6 }}
             >
-              💕 爱的宣言 💕
+              💕 三行情诗 💕
             </motion.h2>
 
             <motion.div
@@ -243,7 +243,7 @@ const Home = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 1, duration: 0.8 }}
             >
-              <p className="text-base md:text-lg text-gray-700 leading-relaxed mb-4">
+              <p className="text-base md:text-lg text-gray-700 leading-relaxed mb-4 text-left">
                 我野蛮生长
                 <br/>
                 没能成为自己的月亮
@@ -255,7 +255,7 @@ const Home = () => {
                 animate={{ scale: [1, 1.02, 1] }}
                 transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
               >
-                TT我爱你，直到时间的尽头 ❤️
+                TT 我爱你，直到时间的尽头 ❤️
               </motion.p>
             </motion.div>
 
