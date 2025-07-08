@@ -27,12 +27,9 @@ const FloatingDecorations = () => {
   const decorations = useMemo(() => [
     { id: 1, Icon: Heart, className: "top-20 left-10", size: "w-8 h-8", color: "text-pink-400", animation: "animate-bounce" },
     { id: 2, Icon: Sparkles, className: "top-40 right-20", size: "w-6 h-6", color: "text-purple-400", animation: "animate-pulse" },
-    { id: 3, Icon: Sparkles, className: "bottom-20 right-10", size: "w-8 h-8", color: "text-pink-500", animation: "animate-pulse delay-500" },
     { id: 4, Icon: Heart, className: "top-1/2 left-1/4", size: "w-4 h-4", color: "text-red-400", animation: "animate-ping" },
     { id: 5, Icon: Heart, className: "top-1/3 right-1/3", size: "w-6 h-6", color: "text-pink-300", animation: "animate-bounce delay-700" },
-    { id: 6, Icon: Calendar, className: "bottom-40 left-20", size: "w-5 h-5", color: "text-purple-300", animation: "animate-pulse delay-1000" },
-    { id: 7, Icon: Clock, className: "top-60 right-40", size: "w-5 h-5", color: "text-rose-400", animation: "animate-bounce delay-300" }
-  ], [])
+   ], [])
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -247,16 +244,18 @@ const Home = () => {
               transition={{ delay: 1, duration: 0.8 }}
             >
               <p className="text-base md:text-lg text-gray-700 leading-relaxed mb-4">
-                时间见证着我们的爱情，每一分每一秒都在诉说着我们的故事。
-                <br />
-                愿我们的爱情如这计时器一样，永远向前，永不停歇。
+                我野蛮生长
+                <br/>
+                没能成为自己的月亮
+                <br/>
+                能遇见你 是银河赠送我的糖
               </p>
               <motion.p
                 className="text-pink-600 font-semibold text-lg"
                 animate={{ scale: [1, 1.02, 1] }}
                 transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
               >
-                我爱你，直到时间的尽头 ❤️
+                TT我爱你，直到时间的尽头 ❤️
               </motion.p>
             </motion.div>
 
