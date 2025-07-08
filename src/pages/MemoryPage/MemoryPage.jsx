@@ -1,6 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Heart, Sparkles, ChevronLeft, ChevronRight, MapPin, Calendar, Camera, ImageIcon } from 'lucide-react'
+import {
+    Heart,
+    Sparkles,
+    ChevronLeft,
+    ChevronRight,
+    MapPin,
+    Calendar,
+    Camera,
+    ImageIcon,
+    Gift,
+    CalendarHeart, Cloud
+} from 'lucide-react'
 import romanticBg from '../../assets/romantic-background.png'
 
 // 图片预加载 Hook
@@ -42,7 +53,7 @@ const MemoryPage = () => {
             location: "中央公园",
             description: "",
             category: "特别日子",
-            images: ["img/20250606.jpg", "img/20250610.jpg"] // 支持多张图片
+            images: ["img/20250606.jpg"] // 支持多张图片
         },
         {
             id: 2,
@@ -51,7 +62,7 @@ const MemoryPage = () => {
             location: "狮山公园",
             description: "",
             category: "约会",
-            images: ["img/20250610.jpg", "img/20250610-2.jpg", "img/20250610-3.jpg"]
+            images: ["img/20250610.jpg"]
         },
         {
             id: 3,
@@ -69,12 +80,12 @@ const MemoryPage = () => {
     const { loadedImages, failedImages } = useImagePreloader(allImageUrls)
 
     const categories = [
-        { key: 'all', label: '全部回忆', icon: Heart },
+        { key: 'all', label: '全部回忆', icon: Cloud },
         { key: '约会', label: '约会', icon: Heart },
         { key: '旅行', label: '旅行', icon: Camera },
         { key: '特别日子', label: '特别日子', icon: Sparkles },
-        { key: '日常', label: '日常', icon: Heart },
-        { key: '礼物', label: '礼物', icon: Heart }
+        { key: '日常', label: '日常', icon: CalendarHeart },
+        { key: '礼物', label: '礼物', icon: Gift }
     ]
 
     const filteredMemories = activeCategory === 'all'

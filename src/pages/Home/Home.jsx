@@ -243,20 +243,41 @@ const Home = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 1, duration: 0.8 }}
             >
-              <p className="text-base md:text-lg text-gray-700 leading-relaxed mb-4 text-left">
-                我野蛮生长
-                <br/>
-                没能成为自己的月亮
-                <br/>
-                能遇见你 是银河赠送我的糖
-              </p>
-              <motion.p
-                className="text-pink-600 font-semibold text-lg"
-                animate={{ scale: [1, 1.02, 1] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              >
-                TT 我爱你，直到时间的尽头 ❤️
-              </motion.p>
+              {/* 三行情诗 - 居中布局但文字左对齐 */}
+              <div className="flex justify-center mb-6">
+                <motion.p
+                  className="text-lg md:text-xl text-gray-700 leading-relaxed font-normal text-left"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.2, duration: 0.8 }}
+                >
+                  我野蛮生长
+                  <br/>
+                  没能成为自己的月亮
+                  <br/>
+                  能遇见你 是银河赠送我的糖
+                </motion.p>
+              </div>
+
+              {/* 爱的宣言 - 居中显示 */}
+              <div className="text-center">
+                <motion.p
+                  className="text-pink-600 font-semibold text-xl md:text-2xl"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    scale: [1, 1.02, 1]
+                  }}
+                  transition={{
+                    opacity: { delay: 1.4, duration: 0.8 },
+                    y: { delay: 1.4, duration: 0.8 },
+                    scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+                  }}
+                >
+                  TT 我爱你 永远永远 ❤️
+                </motion.p>
+              </div>
             </motion.div>
 
             {/* 额外的浪漫元素 */}
