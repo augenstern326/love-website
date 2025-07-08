@@ -51,7 +51,7 @@ const MemoryPage = () => {
             title: "告白の日",
             date: "2025-06-06",
             location: "中央公园",
-            description: "",
+            description: "小番茄趣事、茶颜悦色、马记永、狼狈表白",
             category: "特别日子",
             images: ["img/20250606.jpg"] // 支持多张图片
         },
@@ -60,7 +60,7 @@ const MemoryPage = () => {
             title: "第一次约会",
             date: "2025-06-10",
             location: "狮山公园",
-            description: "",
+            description: "三千粉米线、牵手、依依不舍",
             category: "约会",
             images: ["img/20250610.jpg"]
         },
@@ -69,9 +69,27 @@ const MemoryPage = () => {
             title: "公园散步",
             date: "2025-06-13",
             location: "石湖公园",
-            description: "",
+            description: "重庆小面、RIO、萤火虫",
             category: "约会",
             images: ["img/20250613.jpg"]
+        },
+        {
+            id: 4,
+            title: "平姐生日",
+            date: "2025-06-21",
+            location: "胥江龙湖",
+            description: "黔夺夺、KTV、山姆超市、鑫花溪、台球",
+            category: "约会",
+            images: ["img/20250621.jpg"]
+        },
+        {
+            id: 5,
+            title: "宅家看电影",
+            date: "2025-06-22",
+            location: "家",
+            description: "紫燕百味鸡、《夏洛特烦恼》",
+            category: "日常",
+            images: ["img/20250622.jpg"]
         }
     ])
 
