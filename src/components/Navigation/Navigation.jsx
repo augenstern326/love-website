@@ -9,7 +9,7 @@ const Navigation = () => {
   const navItems = [
     { path: '/', label: '首页', icon: Heart },
     { path: '/memory', label: '记忆', icon: Star },
-    { path: '/neko', label: '猫猫', icon: Cat }
+    // { path: '/neko', label: '猫猫', icon: Cat }
   ]
 
   return (
