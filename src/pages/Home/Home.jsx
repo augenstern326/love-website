@@ -1,7 +1,55 @@
-import { useState, useEffect } from 'react'
-import { Heart, Sparkles } from 'lucide-react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
+import { Heart, Sparkles, Calendar, Clock } from 'lucide-react'
+import { motion } from 'framer-motion'
 import romanticBg from '../../assets/romantic-background.png'
 import heartDecoration from '../../assets/heart-decoration.png'
+
+// 时间计算工具函数
+const calculateTimeElapsed = (startDate) => {
+  const now = new Date()
+  const diff = now - startDate
+
+  if (diff <= 0) return { years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 }
+
+  // 更精确的时间计算
+  const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25))
+  const months = Math.floor((diff % (1000 * 60 * 60 * 24 * 365.25)) / (1000 * 60 * 60 * 24 * 30.44))
+  const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24))
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+  const seconds = Math.floor((diff % (1000 * 60)) / 1000)
+
+  return { years, months, days, hours, minutes, seconds }
+}
+
+// 浮动装饰组件
+const FloatingDecorations = () => {
+  const decorations = useMemo(() => [
+    { id: 1, Icon: Heart, className: "top-20 left-10", size: "w-8 h-8", color: "text-pink-400", animation: "animate-bounce" },
+    { id: 2, Icon: Sparkles, className: "top-40 right-20", size: "w-6 h-6", color: "text-purple-400", animation: "animate-pulse" },
+    { id: 3, Icon: Sparkles, className: "bottom-20 right-10", size: "w-8 h-8", color: "text-pink-500", animation: "animate-pulse delay-500" },
+    { id: 4, Icon: Heart, className: "top-1/2 left-1/4", size: "w-4 h-4", color: "text-red-400", animation: "animate-ping" },
+    { id: 5, Icon: Heart, className: "top-1/3 right-1/3", size: "w-6 h-6", color: "text-pink-300", animation: "animate-bounce delay-700" },
+    { id: 6, Icon: Calendar, className: "bottom-40 left-20", size: "w-5 h-5", color: "text-purple-300", animation: "animate-pulse delay-1000" },
+    { id: 7, Icon: Clock, className: "top-60 right-40", size: "w-5 h-5", color: "text-rose-400", animation: "animate-bounce delay-300" }
+  ], [])
+
+  return (
+    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+      {decorations.map(({ id, Icon, className, size, color, animation }) => (
+        <motion.div
+          key={id}
+          className={`absolute ${className} ${animation}`}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: id * 0.2, duration: 0.5 }}
+        >
+          <Icon className={`${size} ${color}`} />
+        </motion.div>
+      ))}
+    </div>
+  )
+}
 
 const Home = () => {
   const [timeElapsed, setTimeElapsed] = useState({
@@ -13,33 +61,31 @@ const Home = () => {
     seconds: 0
   })
 
-  useEffect(() => {
-    const startDate = new Date('2025-06-06T20:00:00')
-    
-    const updateTimer = () => {
-      const now = new Date()
-      const diff = now - startDate
-      
-      if (diff > 0) {
-        const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365))
-        const months = Math.floor((diff % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30))
-        const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24))
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000)
-        
-        setTimeElapsed({ years, months, days, hours, minutes, seconds })
-      }
-    }
+  // 恋爱开始时间 - 可以配置
+  const startDate = useMemo(() => new Date('2025-06-06T20:00:00'), [])
 
+  const updateTimer = useCallback(() => {
+    setTimeElapsed(calculateTimeElapsed(startDate))
+  }, [startDate])
+
+  useEffect(() => {
     updateTimer()
     const interval = setInterval(updateTimer, 1000)
-    
     return () => clearInterval(interval)
-  }, [])
+  }, [updateTimer])
+
+  // 时间单位配置
+  const timeUnits = useMemo(() => [
+    { label: '年', key: 'years', color: 'from-pink-500 to-rose-500', icon: Calendar },
+    { label: '月', key: 'months', color: 'from-purple-500 to-pink-500', icon: Calendar },
+    { label: '天', key: 'days', color: 'from-indigo-500 to-purple-500', icon: Calendar },
+    { label: '时', key: 'hours', color: 'from-blue-500 to-indigo-500', icon: Clock },
+    { label: '分', key: 'minutes', color: 'from-cyan-500 to-blue-500', icon: Clock },
+    { label: '秒', key: 'seconds', color: 'from-teal-500 to-cyan-500', icon: Clock }
+  ], [])
 
   return (
-    <div 
+    <div
       className="min-h-screen pt-20 relative overflow-hidden"
       style={{
         backgroundImage: `url(${romanticBg})`,
@@ -49,94 +95,195 @@ const Home = () => {
       }}
     >
       {/* 背景遮罩 */}
-      <div className="absolute inset-0 bg-white/20 backdrop-blur-sm"></div>
-      
+      <motion.div
+        className="absolute inset-0 bg-white/20 backdrop-blur-sm"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      />
+
       {/* 浮动装饰元素 */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 animate-bounce">
-          <Heart className="w-8 h-8 text-pink-400" />
-        </div>
-        <div className="absolute top-40 right-20 animate-pulse">
-          <Sparkles className="w-6 h-6 text-purple-400" />
-        </div>
-        {/*<div className="absolute bottom-40 left-20 animate-bounce delay-1000">*/}
-        {/*  <img src={heartDecoration} alt="heart" className="w-12 h-12 opacity-70" />*/}
-        {/*</div>*/}
-        <div className="absolute bottom-20 right-10 animate-pulse delay-500">
-          <Sparkles className="w-8 h-8 text-pink-500" />
-        </div>
-        <div className="absolute top-1/2 left-1/4 animate-ping">
-          <Heart className="w-4 h-4 text-red-400" />
-        </div>
-        <div className="absolute top-1/3 right-1/3 animate-bounce delay-700">
-          <Heart className="w-6 h-6 text-pink-300" />
-        </div>
-      </div>
+      <FloatingDecorations />
 
       <div className="max-w-4xl mx-auto px-4 py-12 relative z-10">
         {/* 主标题 */}
-        <div className="text-center mb-12 fade-in-up">
-          <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-purple-700 mb-4 responsive-title heartbeat-animation">
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <motion.h1
+            className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-purple-700 mb-4 responsive-title"
+            animate={{ scale: [1, 1.05, 1] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          >
             我们在一起
-          </h1>
-          <div className="flex items-center justify-center space-x-2 text-pink-600">
-            <Heart className="w-5 h-5 sparkle-animation" />
+          </motion.h1>
+          <motion.div
+            className="flex items-center justify-center space-x-2 text-pink-600"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.6 }}
+          >
+            <motion.div
+              animate={{ scale: [1, 1.2, 1], opacity: [0.7, 1, 0.7] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <Heart className="w-5 h-5" />
+            </motion.div>
             <span className="text-sm font-medium">每一秒都是爱的见证</span>
-            <Heart className="w-5 h-5 sparkle-animation" />
-          </div>
-        </div>
+            <motion.div
+              animate={{ scale: [1, 1.2, 1], opacity: [0.7, 1, 0.7] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            >
+              <Heart className="w-5 h-5" />
+            </motion.div>
+          </motion.div>
+        </motion.div>
 
         {/* 计时器 */}
-        <div className="bg-white/80 backdrop-blur-md rounded-3xl shadow-2xl p-6 md:p-8 mb-12 border border-pink-200 hover-lift fade-in-up">
+        <motion.div
+          className="bg-white/80 backdrop-blur-md rounded-3xl shadow-2xl p-6 md:p-8 mb-12 border border-pink-200 hover-lift"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.8 }}
+          whileHover={{ y: -5, boxShadow: "0 25px 50px rgba(0, 0, 0, 0.15)" }}
+        >
           <div className="grid grid-cols-2 md:grid-cols-6 gap-3 md:gap-4">
-            {[
-              { label: '年', value: timeElapsed.years, color: 'from-pink-500 to-rose-500' },
-              { label: '月', value: timeElapsed.months, color: 'from-purple-500 to-pink-500' },
-              { label: '天', value: timeElapsed.days, color: 'from-indigo-500 to-purple-500' },
-              { label: '时', value: timeElapsed.hours, color: 'from-blue-500 to-indigo-500' },
-              { label: '分', value: timeElapsed.minutes, color: 'from-cyan-500 to-blue-500' },
-              { label: '秒', value: timeElapsed.seconds, color: 'from-teal-500 to-cyan-500' }
-            ].map(({ label, value, color }) => (
-              <div key={label} className="text-center">
-                <div className={`bg-gradient-to-br ${color} text-white rounded-xl md:rounded-2xl p-3 md:p-4 mb-2 shadow-lg transform hover:scale-105 transition-all duration-300 hover-lift`}>
-                  <div className="text-xl md:text-2xl lg:text-3xl font-bold">
-                    {value.toString().padStart(2, '0')}
-                  </div>
-                </div>
+            {timeUnits.map(({ label, key, color, icon: Icon }, index) => (
+              <motion.div
+                key={label}
+                className="text-center"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.5 + index * 0.1, duration: 0.5 }}
+              >
+                <motion.div
+                  className={`bg-gradient-to-br ${color} text-white rounded-xl md:rounded-2xl p-3 md:p-4 mb-2 shadow-lg cursor-pointer`}
+                  whileHover={{
+                    scale: 1.05,
+                    boxShadow: "0 10px 30px rgba(0, 0, 0, 0.2)"
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <motion.div
+                    className="text-xl md:text-2xl lg:text-3xl font-bold"
+                    key={timeElapsed[key]} // 重新渲染动画当数值改变时
+                    initial={{ scale: 1.2, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {timeElapsed[key].toString().padStart(2, '0')}
+                  </motion.div>
+                </motion.div>
                 <div className="text-xs md:text-sm text-gray-700 font-medium">{label}</div>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+
+          {/* 总时长统计 */}
+          <motion.div
+            className="mt-6 text-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2, duration: 0.6 }}
+          >
+            <div className="text-lg md:text-xl text-gray-700">
+              我们已经相爱了
+              <motion.span
+                className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 mx-2"
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              >
+                {Math.floor((new Date() - startDate) / (1000 * 60 * 60 * 24))}
+              </motion.span>
+              个美好的日子 ✨
+            </div>
+          </motion.div>
+        </motion.div>
 
         {/* 爱情寄语 */}
-        <div className="text-center fade-in-up">
-          <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl p-6 md:p-8 border border-pink-200 hover-lift">
-            <div className="flex items-center justify-center mb-4">
-              <img src={heartDecoration} alt="heart" className="w-10 h-10 md:w-12 md:h-12 float-animation" />
+        <motion.div
+          className="text-center"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.8 }}
+        >
+          <motion.div
+            className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl p-6 md:p-8 border border-pink-200 hover-lift relative overflow-hidden"
+            whileHover={{ y: -5, boxShadow: "0 25px 50px rgba(0, 0, 0, 0.15)" }}
+          >
+            {/* 背景装饰 */}
+            <div className="absolute inset-0 opacity-5">
+              <div className="absolute top-4 left-4">
+                <Heart className="w-8 h-8 text-pink-500" />
+              </div>
+              <div className="absolute bottom-4 right-4">
+                <Sparkles className="w-6 h-6 text-purple-500" />
+              </div>
             </div>
-            <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4">
+
+            <motion.div
+              className="flex items-center justify-center mb-4"
+              animate={{ y: [0, -5, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <img src={heartDecoration} alt="heart" className="w-10 h-10 md:w-12 md:h-12" />
+            </motion.div>
+
+            <motion.h2
+              className="text-xl md:text-2xl font-bold text-gray-800 mb-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8, duration: 0.6 }}
+            >
               💕 爱的宣言 💕
-            </h2>
-            <p className="text-base md:text-lg text-gray-700 leading-relaxed">
-              时间见证着我们的爱情，每一分每一秒都在诉说着我们的故事。
-              <br />
-              愿我们的爱情如这计时器一样，永远向前，永不停歇。
-              <br />
-              <span className="text-pink-600 font-semibold">我爱你，直到时间的尽头 ❤️</span>
-            </p>
-            
+            </motion.h2>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1, duration: 0.8 }}
+            >
+              <p className="text-base md:text-lg text-gray-700 leading-relaxed mb-4">
+                时间见证着我们的爱情，每一分每一秒都在诉说着我们的故事。
+                <br />
+                愿我们的爱情如这计时器一样，永远向前，永不停歇。
+              </p>
+              <motion.p
+                className="text-pink-600 font-semibold text-lg"
+                animate={{ scale: [1, 1.02, 1] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              >
+                我爱你，直到时间的尽头 ❤️
+              </motion.p>
+            </motion.div>
+
             {/* 额外的浪漫元素 */}
-            <div className="mt-6 flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-4">
-              <div className="bg-gradient-to-r from-pink-100 to-purple-100 rounded-full px-4 py-2 hover-lift">
+            <motion.div
+              className="mt-6 flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.2, duration: 0.6 }}
+            >
+              <motion.div
+                className="bg-gradient-to-r from-pink-100 to-purple-100 rounded-full px-4 py-2 cursor-pointer"
+                whileHover={{ scale: 1.05, boxShadow: "0 5px 15px rgba(0, 0, 0, 0.1)" }}
+                whileTap={{ scale: 0.95 }}
+              >
                 <span className="text-sm text-pink-700 font-medium">💖 Forever Love</span>
-              </div>
-              <div className="bg-gradient-to-r from-purple-100 to-indigo-100 rounded-full px-4 py-2 hover-lift">
+              </motion.div>
+              <motion.div
+                className="bg-gradient-to-r from-purple-100 to-indigo-100 rounded-full px-4 py-2 cursor-pointer"
+                whileHover={{ scale: 1.05, boxShadow: "0 5px 15px rgba(0, 0, 0, 0.1)" }}
+                whileTap={{ scale: 0.95 }}
+              >
                 <span className="text-sm text-purple-700 font-medium">🌟 Together Always</span>
-              </div>
-            </div>
-          </div>
-        </div>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
       </div>
     </div>
   )
