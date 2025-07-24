@@ -90,6 +90,15 @@ const MemoryPage = () => {
             description: "紫燕百味鸡、《夏洛特烦恼》",
             category: "日常",
             images: ["img/20250622.jpg"]
+        },
+        {
+            id: 6,
+            title: "周六小逛",
+            date: "2025-07-19",
+            location: "苏州中心",
+            description: "蛙喔牛蛙、音乐喷泉、KKV、抓娃娃",
+            category: "约会",
+            images: ["img/20250719-1.jpg","img/20250719-2.jpg"]
         }
     ])
 
